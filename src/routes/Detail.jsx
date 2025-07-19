@@ -1,14 +1,20 @@
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 function Detail(props) {
-  let { id } = useParams();
-  //alert(typeof(id))
-  //console.log(props.shoes[id].id)
+  useEffect(() => {
+      const timer = setTimeout(()=> {
+        setBanner(false)
+      }, 2000);
+      return ()=> clearTimeout(timer)
+  },[]);
+  let [banner, setBanner] = useState(true);
 
-  console.log(props.shoes.find(shoe => shoe.id == id))
-  let shoe = props.shoes.find(shoe => shoe.id == id) 
+  let { id } = useParams();
+  let shoe = props.shoes.find((shoe) => shoe.id == id);
   return (
     <div className="container">
+      {banner && <div className="alert alert-warning">2초이내 구매시 할인</div>}
       <div className="row">
         <div className="col-md-6">
           <img

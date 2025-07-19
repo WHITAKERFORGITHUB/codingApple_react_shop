@@ -5,6 +5,7 @@ import bg from './bg.png';
 import data from './data.js';
 import { Link, Route, Routes, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './routes/Detail.jsx';
+import axios from 'axios'
 
 function App() {
   const [shoes, setShoes] = useState(data);
@@ -39,6 +40,18 @@ function App() {
                     ))}
                   </div>
                 </div>
+                <button onClick={()=> {
+                  axios.get('https://codingapple1.github.io/shop/data2.json')
+                    .then((data)=> {
+                      console.log('data', data.data)
+                      let addShoes = [...shoes];
+                      addShoes.push(...data.data)
+                      setShoes(addShoes);
+                    })
+                    .catch(()=> {
+                      console.log('실패')
+                    })
+                }}>버튼</button>
               </>
             }
           />
